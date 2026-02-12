@@ -928,3 +928,179 @@ nav a:hover::after {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(56,189,248,.25);
 }
+/* =========================
+   PAGE LOADER (TEXT ONLY)
+========================= */
+
+#page-loader {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #020617, #000);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#page-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  animation: fadeUp 0.9s ease forwards;
+}
+
+.loader-name {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #e5e7eb;
+  text-shadow:
+    0 0 18px rgba(56, 189, 248, 0.35),
+    0 0 40px rgba(56, 189, 248, 0.15);
+}
+
+/* Subtle entrance */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* =========================
+   MOBILE RESPONSIVE FIX
+   (ADD AT VERY END)
+========================= */
+@media (max-width: 768px) {
+
+  /* Prevent horizontal scroll from visuals */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* NAVBAR */
+  .navbar {
+    padding: 14px 6%;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  nav a {
+    margin: 0 10px;
+    font-size: 14px;
+  }
+
+  /* HERO */
+  .hero {
+    height: auto;
+    padding: 140px 6% 80px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    line-height: 1.2;
+  }
+
+  .hero p {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  /* Hide heavy hero visuals */
+  .wireframe-orb,
+  .bg-orb,
+  .blur-blob,
+  .data-ring,
+  .hex-node,
+  .floating-node,
+  .glow-dot {
+    display: none;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 90px 6%;
+  }
+
+  .section h2 {
+    font-size: 28px;
+  }
+
+  /* ABOUT */
+  .about-heading {
+    font-size: 52px;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .stat h3 {
+    font-size: 26px;
+  }
+
+  .stat p {
+    font-size: 14px;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .live-card {
+    padding: 22px;
+  }
+
+  /* SKILLS MARQUEE */
+  .skills-marquee {
+    overflow: hidden;
+  }
+
+  .skills-track {
+    animation-duration: 45s;
+  }
+
+  .skill-pill {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  /* BUTTONS */
+  .btn,
+  .contact-link {
+    padding: 14px 22px;
+    font-size: 15px;
+  }
+
+  /* FOOTER */
+  .site-footer {
+    padding: 60px 6% 28px;
+  }
+
+  .footer-tagline {
+    font-size: 14px;
+  }
+
+  /* CURSOR GLOW OFF ON MOBILE */
+  #cursor-glow {
+    display: none;
+  }
+
+  /* PAGE LOADER TEXT */
+  .loader-name {
+    font-size: 28px;
+    text-align: center;
+  }
+}
+
