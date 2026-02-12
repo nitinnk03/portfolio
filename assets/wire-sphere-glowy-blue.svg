@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="blueGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer sphere -->
+  <circle cx="150" cy="150" r="100"
+    fill="none"
+    stroke="#38B6FF"
+    stroke-width="2"
+    filter="url(#blueGlow)"/>
+
+  <!-- Horizontal latitude lines -->
+  <ellipse cx="150" cy="150" rx="100" ry="30"
+    fill="none"
+    stroke="#38B6FF"
+    stroke-width="1.5"
+    filter="url(#blueGlow)"/>
+  <ellipse cx="150" cy="150" rx="100" ry="55"
+    fill="none"
+    stroke="#38B6FF"
+    stroke-width="1.5"
+    filter="url(#blueGlow)"/>
+
+  <!-- Vertical longitude lines -->
+  <ellipse cx="150" cy="150" rx="30" ry="100"
+    fill="none"
+    stroke="#38B6FF"
+    stroke-width="1.5"
+    filter="url(#blueGlow)"/>
+  <ellipse cx="150" cy="150" rx="55" ry="100"
+    fill="none"
+    stroke="#38B6FF"
+    stroke-width="1.5"
+    filter="url(#blueGlow)"/>
+
+</svg>
