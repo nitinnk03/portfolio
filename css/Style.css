@@ -1103,4 +1103,64 @@ nav a:hover::after {
     text-align: center;
   }
 }
+/* =========================
+   FORCE FLOATING NODES ON MOBILE
+========================= */
+@media (max-width: 768px) {
+
+  /* Prevent horizontal scroll */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Ensure content stays above */
+  section,
+  .section,
+  .hero,
+  .navbar {
+    position: relative;
+    z-index: 5;
+  }
+
+  /* =========================
+     FLOATING NODES – MOBILE
+  ========================= */
+  .floating-node,
+  .hex-node,
+  .glow-dot,
+  .micro-dot {
+    display: block !important;
+    opacity: 0.55;              /* 👈 visible but subtle */
+    transform: scale(0.9);      /* 👈 readable size */
+    z-index: 2;                 /* 👈 behind content, above bg */
+    pointer-events: none;
+  }
+
+  /* Increase size slightly for phones */
+  .floating-node {
+    width: 10px;
+    height: 10px;
+  }
+
+  .hex-node {
+    width: 16px;
+    height: 16px;
+  }
+
+  .glow-dot,
+  .micro-dot {
+    box-shadow: 0 0 12px rgba(56,189,248,0.9);
+  }
+
+  /* =========================
+     DO NOT CLIP DECORATIONS
+  ========================= */
+  body,
+  .hero,
+  section {
+    overflow-x: hidden;
+    overflow-y: visible;
+  }
+}
+
 
