@@ -1,44 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("JS loaded");
 
-  /* =========================
-     THEME TOGGLE
-  ========================= */
-  const themeToggle = document.getElementById("themeToggle");
+/* =========================
+   THEME TOGGLE (CIRCLE REVEAL)
+========================= */
 
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("light-theme");
-      themeToggle.textContent =
-        document.body.classList.contains("light-theme") ? "🌙" : "☀️";
-    });
+const themeToggle = document.getElementById("themeToggle");
+const transition = document.getElementById("theme-transition");
+
+themeToggle.addEventListener("click", (e) => {
+  // Pulse animation on button
+  themeToggle.classList.add("switching");
+  setTimeout(() => themeToggle.classList.remove("switching"), 800);
+
+  // Get click position
+  const x = e.clientX + "px";
+  const y = e.clientY + "px";
+
+  transition.style.setProperty("--x", x);
+  transition.style.setProperty("--y", y);
+
+  transition.classList.add("active");
+
+  // Switch theme mid-animation
+  setTimeout(() => {
+    document.body.classList.toggle("light-theme");
+
+    themeToggle.textContent =
+      document.body.classList.contains("light-theme") ? "🌙" : "☀️";
+  }, 350);
+
+  // Remove mask
+  setTimeout(() => {
+    transition.classList.remove("active");
+  }, 900);
+});
+
+
+ /* =========================
+   MUSIC TOGGLE – FINAL
+========================= */
+const musicToggle = document.getElementById("musicToggle");
+const music = document.getElementById("bgMusic");
+
+let isPlaying = false;
+
+musicToggle.addEventListener("click", async () => {
+  try {
+    if (!isPlaying) {
+      await music.play();
+      musicToggle.classList.add("playing"); // 👈 START animation
+    } else {
+      music.pause();
+      musicToggle.classList.remove("playing"); // 👈 STOP animation
+    }
+    isPlaying = !isPlaying;
+  } catch (err) {
+    console.error("Music error:", err);
   }
+});
 
-  /* =========================
-     MUSIC TOGGLE
-  ========================= */
-  const musicToggle = document.getElementById("musicToggle");
-  const music = document.getElementById("bgMusic");
-
-  if (musicToggle && music) {
-    let isPlaying = false;
-    music.volume = 0.12;
-
-    musicToggle.addEventListener("click", async () => {
-      try {
-        if (!isPlaying) {
-          await music.play();
-          musicToggle.textContent = "🔊";
-        } else {
-          music.pause();
-          musicToggle.textContent = "🎷";
-        }
-        isPlaying = !isPlaying;
-      } catch (e) {
-        console.error("Audio error:", e);
-      }
-    });
-  }
 
   /* =========================
      SCROLL REVEAL
@@ -94,3 +115,28 @@ window.addEventListener("load", () => {
     }, 800);
   }
 });
+// Mobile menu logic
+const menuToggle = document.getElementById("menuToggle");
+const mobileMenu = document.getElementById("mobileMenu");
+const closeMenu = document.getElementById("closeMenu");
+const overlay = document.getElementById("menuOverlay");
+
+menuToggle.addEventListener("click", () => {
+  mobileMenu.classList.add("open");
+  overlay.classList.add("show");
+});
+
+closeMenu.addEventListener("click", closeMobileMenu);
+overlay.addEventListener("click", closeMobileMenu);
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove("open");
+  overlay.classList.remove("show");
+}
+
+// Close menu when link clicked
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+  link.addEventListener("click", closeMobileMenu);
+});
+
+

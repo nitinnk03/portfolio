@@ -22,17 +22,41 @@
 
 
   <!-- NAVBAR -->
-  <header class="navbar">
-    <div class="logo">Shreya Singh</div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-      <button id="themeToggle" class="theme-btn">🌙</button>
-      <button id="musicToggle" class="theme-btn">🎷</button>
-    </nav>
-  </header>
+<header class="navbar">
+  <div class="logo">Shreya Singh</div>
+
+  <!-- Desktop Nav -->
+  <nav class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Right icons -->
+  <div class="nav-icons">
+    <button id="themeToggle" class="theme-btn">🌙</button>
+<button id="musicToggle" class="music-icon" aria-label="Toggle music">
+  🎷
+</button>
+
+</button>
+    <button id="menuToggle" class="menu-toggle">☰</button>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-menu" id="closeMenu">✕</button>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<!-- Overlay -->
+<div class="menu-overlay" id="menuOverlay"></div>
+
 
   <!-- HERO -->
   <section class="hero">
@@ -149,7 +173,7 @@
 <div class="floating-node" style="top:30%; left:80%"></div>
 
 
-  <h2 class="section-title">Skills</h2>
+  <h2 class="section-title">What’s in My Toolbox</h2>
 
   <!-- 👇 REQUIRED OUTER WRAPPER -->
   <div class="skills-marquee">
@@ -369,6 +393,8 @@
   <audio id="bgMusic" loop>
   <source src="assets/jazz.mp3" type="audio/mpeg">
 </audio>
+
+<div id="theme-transition"></div>
 
 </body>
 </html>
