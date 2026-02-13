@@ -1441,6 +1441,33 @@ nav a:hover::after {
   }
 }
 /* =========================
+   HAMBURGER VISIBILITY FIX
+========================= */
+
+.menu-toggle {
+  color: var(--text); /* default */
+}
+
+/* Light theme override */
+.light-theme .menu-toggle {
+  color: #020617; /* dark icon for light bg */
+}
+.menu-toggle {
+  font-size: 22px;
+  padding: 8px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.menu-toggle:active {
+  background: rgba(0,0,0,0.06);
+}
+
+.light-theme .menu-toggle:active {
+  background: rgba(0,0,0,0.08);
+}
+
+/* =========================
    MOBILE MENU LINK ANIMATION
 ========================= */
 
@@ -1817,4 +1844,26 @@ nav a:hover::after {
     transform: translate(var(--dx), var(--dy)) scale(0.4);
     opacity: 0;
   }
+}
+/* =========================
+   MOBILE MENU TEXT FIX (LIGHT MODE)
+========================= */
+
+.mobile-menu a {
+  color: #e5e7eb; /* force visible text */
+  opacity: 1;
+}
+
+/* Close (X) button */
+.mobile-menu .close-menu {
+  color: #e5e7eb;
+}
+
+/* Light theme override */
+.light-theme .mobile-menu {
+  background: rgba(2, 6, 23, 0.96); /* keep dark card */
+}
+
+.light-theme .mobile-menu a {
+  color: #f8fafc; /* bright white text */
 }
