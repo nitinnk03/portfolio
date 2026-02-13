@@ -60,6 +60,18 @@ musicToggle.addEventListener("click", async () => {
   }
 });
 
+// =========================
+// SCROLL VELOCITY TRACKER
+// =========================
+let lastScrollY = window.scrollY;
+let scrollVelocity = 0;
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.scrollY;
+  scrollVelocity = currentScroll - lastScrollY;
+  lastScrollY = currentScroll;
+});
+
 
   /* =========================
      SCROLL REVEAL
@@ -137,6 +149,52 @@ function closeMobileMenu() {
 // Close menu when link clicked
 document.querySelectorAll(".mobile-menu a").forEach(link => {
   link.addEventListener("click", closeMobileMenu);
+});
+
+/* =========================
+   CURSOR DOT TRAIL (SUBTLE + SCROLL REACTIVE)
+========================= */
+
+if (window.innerWidth > 768) {
+  document.addEventListener("mousemove", (e) => {
+
+    // reduce density
+    if (Math.random() > 0.15) return;
+
+    const dot = document.createElement("div");
+    dot.className = "cursor-dot";
+
+    // start position (cursor)
+    dot.style.left = e.clientX + "px";
+    dot.style.top = e.clientY + "px";
+
+    // gentle drift + scroll influence
+    const dx = (Math.random() - 0.5) * 40;
+    const dy = (Math.random() - 0.5) * 30 - scrollVelocity * 0.6;
+
+    dot.style.setProperty("--dx", dx + "px");
+    dot.style.setProperty("--dy", dy + "px");
+
+    document.body.appendChild(dot);
+
+    // cleanup
+    setTimeout(() => {
+      dot.remove();
+    }, 1400);
+  });
+}
+
+/* =========================
+   DOTS REACT TO SCROLL
+========================= */
+
+let lastScrollY = window.scrollY;
+let scrollVelocity = 0;
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.scrollY;
+  scrollVelocity = currentScroll - lastScrollY;
+  lastScrollY = currentScroll;
 });
 
 
