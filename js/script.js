@@ -151,50 +151,111 @@ document.querySelectorAll(".mobile-menu a").forEach(link => {
   link.addEventListener("click", closeMobileMenu);
 });
 
-/* =========================
-   CURSOR DOT TRAIL (SUBTLE + SCROLL REACTIVE)
-========================= */
+document.addEventListener("DOMContentLoaded", () => {
 
-if (window.innerWidth > 768) {
-  document.addEventListener("mousemove", (e) => {
+  /* =========================
+     CURSOR DOT TRAIL (SAFE)
+  ========================= */
 
-    // reduce density
-    if (Math.random() > 0.15) return;
+  let cursorPaused = false;
+  let lastScrollY = window.scrollY;
+  let scrollVelocity = 0;
 
-    const dot = document.createElement("div");
-    dot.className = "cursor-dot";
+  if (window.innerWidth > 768) {
+    document.addEventListener("mousemove", (e) => {
 
-    // start position (cursor)
-    dot.style.left = e.clientX + "px";
-    dot.style.top = e.clientY + "px";
+      if (cursorPaused) return;
+      if (Math.random() > 0.15) return;
 
-    // gentle drift + scroll influence
-    const dx = (Math.random() - 0.5) * 40;
-    const dy = (Math.random() - 0.5) * 30 - scrollVelocity * 0.6;
+      const dot = document.createElement("div");
+      dot.className = "cursor-dot";
 
-    dot.style.setProperty("--dx", dx + "px");
-    dot.style.setProperty("--dy", dy + "px");
+      dot.style.left = e.clientX + "px";
+      dot.style.top = e.clientY + "px";
 
-    document.body.appendChild(dot);
+      const clampedScroll = Math.max(-20, Math.min(scrollVelocity, 20));
+      const dx = (Math.random() - 0.5) * 40;
+      const dy = (Math.random() - 0.5) * 30 - clampedScroll * 0.4;
 
-    // cleanup
+      dot.style.setProperty("--dx", dx + "px");
+      dot.style.setProperty("--dy", dy + "px");
+
+      document.body.appendChild(dot);
+
+      setTimeout(() => dot.remove(), 1200);
+    });
+  }
+
+  /* =========================
+     SCROLL VELOCITY
+  ========================= */
+
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+    scrollVelocity = currentScroll - lastScrollY;
+    lastScrollY = currentScroll;
+  });
+
+  /* =========================
+     PAUSE DURING INTERNAL NAV
+  ========================= */
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener("click", () => {
+      cursorPaused = true;
+      setTimeout(() => (cursorPaused = false), 700);
+    });
+  });
+
+});
+window.addEventListener("load", () => {
+  const loader = document.getElementById("page-loader");
+  if (loader) {
     setTimeout(() => {
-      dot.remove();
-    }, 1400);
+      loader.classList.add("hide");
+    }, 800);
+  }
+});
+
+/* =========================
+   EMAIL COPY TO CLIPBOARD
+========================= */
+const copyBtn = document.getElementById("copyEmailBtn");
+
+if (copyBtn) {
+  copyBtn.addEventListener("click", async () => {
+    const email = copyBtn.dataset.email;
+
+    try {
+      await navigator.clipboard.writeText(email);
+      copyBtn.classList.add("copied");
+
+      setTimeout(() => {
+        copyBtn.classList.remove("copied");
+      }, 1200);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
   });
 }
+/* Copy email – no redirects */
+const emailCopy = document.querySelector(".email-copy");
 
-/* =========================
-   DOTS REACT TO SCROLL
-========================= */
+if (emailCopy) {
+  emailCopy.addEventListener("click", async () => {
+    const email = emailCopy.dataset.email;
 
-let lastScrollY = window.scrollY;
-let scrollVelocity = 0;
+    try {
+      await navigator.clipboard.writeText(email);
+      emailCopy.classList.add("copied");
 
-window.addEventListener("scroll", () => {
-  const currentScroll = window.scrollY;
-  scrollVelocity = currentScroll - lastScrollY;
-  lastScrollY = currentScroll;
-});
+      setTimeout(() => {
+        emailCopy.classList.remove("copied");
+      }, 1400);
+    } catch (err) {
+      console.error("Copy failed", err);
+    }
+  });
+}
 
 
