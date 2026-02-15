@@ -2188,3 +2188,30 @@ nav a:hover::after {
 .music-icon {
   font-size: 20px;
 }
+/* =========================
+   FORCE HAMBURGER VISIBILITY
+========================= */
+
+/* DESKTOP & LAPTOP */
+@media (min-width: 1025px) {
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .nav-links {
+    display: flex !important;
+  }
+}
+
+/* TABLET + MOBILE */
+@media (max-width: 1024px) {
+  .menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-links {
+    display: none !important;
+  }
+}
